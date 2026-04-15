@@ -2,7 +2,7 @@
   "name": "jobquest",
   "version": "1.0.0",
   "description": "Premium Job Discovery Tool",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
