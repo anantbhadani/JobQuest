@@ -42,7 +42,6 @@ JobQuest is a comprehensive full-stack web application designed for career disco
    ```bash
    npm run dev
    ```
-   The application will be served at `(https://jobquest-oqt9.onrender.com)`.
 
 ## Deployment Instructions (Render.com)
 
