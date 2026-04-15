@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobQuest | Premium Job Discovery</title>
+    <meta name="description" content="Discover your next career move with JobQuest. Real-time job postings aggregated across the internet.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container container-nav">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">JobQuest</span>
+            </div>
+            
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="search">Search</button>
+                <button class="tab-btn" data-tab="tracker">Tracker</button>
+                <button class="tab-btn" data-tab="analyser">Analyser</button>
+            </div>
+
+            <div class="nav-actions">
+                <button id="settings-btn" class="btn btn-icon-only glass-effect" title="API Settings">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- SEARCH VIEW -->
+        <div id="search-view" class="view-content active">
+            <section class="hero-section container">
+                <h1 class="hero-title animate-in">Find Your Dream <span class="gradient-text">Role.</span></h1>
+                <p class="hero-subtitle animate-in-delay">Discover aggregated job postings from top tech companies across India and beyond.</p>
+                
+                <div class="search-bar animate-in-delay-2 glass-effect">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="job-title-input" placeholder="Role (e.g. Software Engineer)">
+                    </div>
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <input type="text" id="location-input" placeholder="Location (e.g. Bangalore)">
+                    </div>
+                    <button id="search-btn" class="btn btn-primary">Discover Jobs</button>
+                </div>
+            </section>
+
+            <section class="jobs-section container">
+                <div id="status-container" class="initial-message">
+                    <div class="loading-spinner hidden" id="main-loader"></div>
+                    <p id="status-text">Enter your API key in settings to start exploring.</p>
+                </div>
+                <div id="jobs-grid" class="jobs-grid"></div>
+            </section>
+        </div>
+
+        <!-- TRACKER VIEW -->
+        <div id="tracker-view" class="view-content">
+            <section class="container">
+                <div class="stats-grid animate-in">
+                    <div class="stat-card glass-effect">
+                        <span class="stat-label">Total Applied</span>
+                        <span id="stat-total" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <span class="stat-label">In Progress</span>
+                        <span id="stat-progress" class="stat-value text-primary">0</span>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <span class="stat-label">Rejected</span>
+                        <span id="stat-rejected" class="stat-value text-secondary">0</span>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2>Application Tracker</h2>
+                    <p>Manage your ongoing applications and update their status.</p>
+                </div>
+
+                <div id="tracker-grid" class="jobs-grid">
+                    <!-- Tracked jobs will be loaded here -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ANALYSER VIEW -->
+        <div id="analyser-view" class="view-content">
+            <section class="container max-width-md">
+                <div class="analyser-container glass-effect animate-in">
+                    <div class="section-header">
+                        <h2>Resume vs JD Analyser</h2>
+                        <p>Paste a Job Description to see how well it matches your stored resume.</p>
+                    </div>
+
+                    <div class="profile-section mb-4">
+                        <div class="d-flex justify-between align-center mb-2">
+                            <label class="label-heading">Your Resume Profile</label>
+                            <div class="btn-group">
+                                <label for="resume-file-input" class="btn-glass" style="cursor: pointer;">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align: middle; margin-right: 4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                    Upload Resume
+                                </label>
+                                <input type="file" id="resume-file-input" class="hidden" accept=".pdf,.txt">
+                                <button id="edit-resume-btn" class="btn-glass">Edit Text</button>
+                            </div>
+                        </div>
+                        <div class="resume-profile-card">
+                            <div id="resume-display" class="resume-preview">
+                                No resume stored. Upload a file or paste text to begin.
+                            </div>
+                            <div id="resume-edit-mode" class="hidden">
+                                <textarea id="resume-input" class="modern-textarea" placeholder="Paste your resume text here (Skills, Experience, Projects)..."></textarea>
+                                <div class="mt-2 d-flex gap-2">
+                                    <button id="save-resume-btn" class="btn btn-primary btn-small">Save Profile</button>
+                                    <button id="cancel-resume-btn" class="btn btn-glass btn-small">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-section">
+                        <label class="label-heading mb-2">Target Job Description</label>
+                        <textarea id="jd-input" class="modern-textarea" placeholder="Paste the job description here to analyse..."></textarea>
+                        <button id="analyse-btn" class="btn btn-primary btn-full mt-3">Run Semantic Analysis</button>
+                    </div>
+
+                    <div id="analysis-result" class="hidden mt-4 animate-scale">
+                        <!-- Results will be injected here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content glass-effect animate-scale">
+            <div class="modal-header">
+                <h2>API Settings</h2>
+                <button id="close-modal" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Please enter your IndianAPI Jobs API Key to continue. Your key is stored locally in your browser.</p>
+                <div class="input-group">
+                    <label for="api-key-input">X-Api-Key</label>
+                    <input type="password" id="api-key-input" placeholder="Enter your API key here...">
+                </div>
+                <div class="info-note">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>Get a key at <a href="http://indianapi.in/jobs-api" target="_blank">indianapi.in</a></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-api-key" class="btn btn-primary btn-full">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Axios -->
+    <!-- External Libraries (Hosted Locally for Privacy & Security) -->
+    <script src="libs/axios.min.js"></script>
+    <script src="libs/pdf.min.js"></script>
+
+    <!-- JS -->
+    <script src="app.js"></script>
+</body>
+</html>
